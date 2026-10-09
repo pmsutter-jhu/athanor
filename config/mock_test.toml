@@ -1,0 +1,48 @@
+[system]
+verbose = true
+ground_truth = ""
+
+[workflow]
+start_stage = 1
+end_stage = 4
+human_in_the_loop = false
+initial_spark = "High-energy neutrinos may have a detectable cross-section with heavy dark matter candidates in the 1-100 TeV mass range."
+output_directory = ""
+
+[llm]
+provider = "mock"
+primary_model = "mock-model"
+antagonist_model = ""
+
+[search]
+provider = "quick"
+search_depth = 1
+
+[rag]
+openalex_email = ""
+semanticscholar_api_key = ""
+huggingface_api_key = ""
+github_api_key = ""
+google_search_api_key = ""
+zenodo_api_key = ""
+
+[debate]
+max_rounds = 1
+
+[planner]
+max_revisions = 1
+
+[grant]
+rfp_target = ""
+max_revisions = 1
+
+[pi]
+name = "Test Scientist"
+affiliation = "Test University"
+links = []
+
+[team]
+members = []
+
+[resources]
+links = []

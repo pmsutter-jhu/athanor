@@ -1,0 +1,66 @@
+[project]
+name = "athanor"
+version = "0.3.0"
+description = "AI-assisted research planning and grant proposal engine"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [
+  { name = "Paul M. Sutter" },
+  { name = "Benjamin Wandelt" },
+]
+requires-python = ">=3.10"
+dependencies = [
+  "beautifulsoup4",
+  "duckduckgo-search",
+  "fpdf2",
+  "google-ai-generativelanguage",
+  "google-generativeai",
+  "httpx",
+  "inquirer",
+  "matplotlib",
+  "networkx",
+  "nicegui>=3.10.0",
+  "numpy",
+  "pandas",
+  "pydantic",
+  "pydantic-ai",
+  "pylatex",
+  "python-dotenv",
+  "pywebview>=6.1",
+  "requests",
+  "scipy",
+  "seaborn",
+  "toml",
+]
+
+[project.scripts]
+# `uv run athanor` and `uv run athanor-gui` both launch the NiceGUI
+# desktop app. `uv run athanor-cli` runs the headless CLI pipeline
+# (useful for automation / batch runs).
+athanor = "athanor.cli:gui_main"
+athanor-gui = "athanor.cli:gui_main"
+athanor-cli = "athanor.cli:cli_main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/athanor"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+main_file = "athanor_gui.py"
+markers = [
+    "nicegui_main_file: specify main file for nicegui user tests",
+    "live: tests that hit the real Gemini API and burn tokens (opt-in via -m live)",
+    "slow: tests that take >30 seconds (live full pipelines, etc.)",
+]
+addopts = "-m 'not live'"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-asyncio>=0.23",
+]

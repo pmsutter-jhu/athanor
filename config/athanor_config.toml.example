@@ -1,0 +1,153 @@
+# ==============================================================================
+#  A T H A N O R   C O N F I G U R A T I O N   ·   E X A M P L E
+# ==============================================================================
+#
+# On first launch Athanor copies this file to `config/athanor_config.toml`.
+# Edit that copy — your real config is gitignored so your name, paths, and
+# in-progress work won't end up in commits.
+#
+# The on-ramp:
+#   1. Set your name + affiliation in the [pi] section below (or in the GUI).
+#   2. Pick ONE profile source: research_url, cv_path, orcid, or bio_supplement.
+#   3. Set GEMINI_API_KEY in your environment (or use provider = "mock" to demo).
+#   4. Launch the GUI, type a spark, click RUN ALL.
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 0. SYSTEM SETTINGS
+# ------------------------------------------------------------------------------
+[system]
+verbose = true
+# Optional: a fixed statement injected into every prompt as a hard constraint.
+ground_truth = ""
+
+# ------------------------------------------------------------------------------
+# 1. CORE WORKFLOW & CONTROL
+# ------------------------------------------------------------------------------
+[workflow]
+# Sequence Control (Stage 1: Profile, 2: Debate, 3: Planning, 4: Grant)
+# The default is the full pipeline — Profile → Debate → Plan → Grant.
+start_stage = 1
+end_stage = 4
+
+# Toggle Human Sovereignty Review (false = autonomous; true = pause for approval)
+human_in_the_loop = false
+
+# Initial Research Idea ("The Spark")
+# Leave blank — set this in the GUI Setup tab when you launch.
+initial_spark = ""
+
+# Optional: project output directory. If empty, Athanor manages a folder
+# under `projects/` named for you and your idea.
+output_directory = ""
+
+# ------------------------------------------------------------------------------
+# 2. INTELLIGENCE & MODELS
+# ------------------------------------------------------------------------------
+[llm]
+# - gemini: requires GEMINI_API_KEY (free tier works)
+# - mock:   no API key, canned outputs (use to try the pipeline end-to-end)
+provider = "gemini"
+
+# Model identifier passed to the provider
+primary_model = "gemini-2.5-flash"
+
+# Optional: a different model for the Stage 2 Antagonist (helps avoid
+# polite-agreement loops). Empty string = use primary_model.
+antagonist_model = ""
+
+# ------------------------------------------------------------------------------
+# 3. KNOWLEDGE & SEARCH
+# ------------------------------------------------------------------------------
+[search]
+# - duckduckgo: free, no API key, slower
+# - google:     native Gemini grounded search (requires gemini provider)
+# - quick:      no search at all (fastest for development)
+provider = "duckduckgo"
+
+# 1 = Quick/Web, 2 = Deep/RAG
+search_depth = 1
+
+[rag]
+# Optional API keys for richer literature search. All can be empty.
+openalex_email = ""
+semanticscholar_api_key = ""
+huggingface_api_key = ""
+github_api_key = ""
+google_search_api_key = ""
+zenodo_api_key = ""
+
+# ------------------------------------------------------------------------------
+# 4. STAGE-SPECIFIC SETTINGS
+# ------------------------------------------------------------------------------
+
+[debate]
+# Stage 2: Each round is Proponent → Antagonist → Judge
+max_rounds = 2
+
+[planner]
+# Stage 3: planner/reviewer revision loops
+max_revisions = 1
+
+[grant]
+# Stage 4: leave rfp_target blank to be prompted at runtime, or paste a URL
+# or local file path here.
+rfp_target = ""
+
+# Funder profile — defaults for budget cap, IDC rate, sections, voice when
+# no exemplar grant is provided. Options: nih_r01, nih_r21, nsf_standard,
+# nsf_career, foundation, darpa, generic
+funder_short_name = "generic"
+
+# Path to a previously-funded proposal (yours or a colleague's). The single
+# highest-leverage input — matches voice, budget structure, IDC rate, section
+# ordering. Leave empty to fall back to funder_short_name defaults.
+exemplar_grant_path = ""
+
+# Stage 4: writer/red-team revision loops
+max_revisions = 1
+
+# ------------------------------------------------------------------------------
+# 5. RESEARCHER PROFILE (THE DIGITAL TWIN)
+#    This defines YOU. The agents use this to ensure the plan is feasible.
+# ------------------------------------------------------------------------------
+[pi]
+name = ""
+affiliation = ""
+
+# Research domain — selects domain-specific resource defaults baseline.
+# One of: general, biomedical, ai_ml, observational_astro,
+# physical_sciences, lab_chemistry, social_sciences, engineering.
+research_domain = "general"
+
+# Profile sources — provide ANY combination, at least one is required.
+
+# Primary research page (web CV, lab page, personal site)
+# research_url = "https://your-lab.example.edu/"
+
+# Optional: PDF/DOCX CV file path
+# cv_path = "/path/to/cv.pdf"
+
+# Optional: ORCID id (e.g. 0000-0002-1234-5678)
+# orcid = ""
+
+# Optional: GitHub profile URL
+# github = ""
+
+# Optional: Google Scholar profile URL
+# scholar_url = ""
+
+# Optional: free-text bio paragraph — fills in what URLs can't show.
+# This is the killer field for non-traditional researchers (no formal CV,
+# active in industry/non-academic work, recently pivoted, etc.)
+# bio_supplement = """
+# A few sentences about your background, current focus, and anything an
+# automated CV scrape would miss.
+# """
+
+# Co-investigators (optional). Each gets the same profile sources.
+[[co_investigators]]
+
+[team]
+# Other collaborators / students / postdocs (simple name strings)
+members = []

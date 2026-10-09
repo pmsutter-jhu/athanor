@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use Athanor, please cite it as below."
+title: "Athanor: AI-assisted research planning and grant proposal engine"
+type: software
+version: 0.3.0
+license: Apache-2.0
+authors:
+  - family-names: Sutter
+    given-names: Paul M.
+    affiliation: Johns Hopkins University
+  - family-names: Wandelt
+    given-names: Benjamin
+    affiliation: Johns Hopkins University
+keywords:
+  - hypothesis generation
+  - research planning
+  - grant proposals
+  - large language models
+  - AI for science

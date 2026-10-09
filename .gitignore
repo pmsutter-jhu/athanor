@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+.env.local
+
+# Personal Athanor config (the .example file is the tracked template)
+config/athanor_config.toml
+
+# VirtualEnv
+venv/
+.venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+
+# Local data
+.DS_Store
+*.log
+projects/
